@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from .models import Listing
-
+from .choices import price_choices,bedroom_choices,state_choices
 
 def listings(request):
     listings=Listing.objects.order_by('-list_date').filter(is_published=True)
@@ -12,6 +12,7 @@ def listings(request):
 
     context={
         'listings': paged_listings
+
     }
     return render(request,'listing/listings.html',context)
  
@@ -25,4 +26,10 @@ def listing(request,listing_id):
  
 
 def search(request):
-    return render(request,'listing/search.html')
+    context = {
+
+        'state_choices': state_choices,
+        'bedroom_choices': bedroom_choices,
+        'price_choices': price_choices,
+    }
+    return render(request,'listing/search.html',context)
