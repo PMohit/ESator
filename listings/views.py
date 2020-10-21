@@ -1,10 +1,16 @@
 from django.shortcuts import render
 
+from .models import Listing
 # Create your views here.
 def listings(request):
-    return render(request,'listing/listings.html')
+    listings=Listing.objects.all()
+
+    context={
+        'listings': listings
+    }
+    return render(request,'listing/listings.html',context)
  
-def listing(request):
+def listing(request,listing_id):
     return render(request,'listing/listing.html')
  
 
